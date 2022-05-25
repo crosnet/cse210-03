@@ -7,7 +7,7 @@ class Jumper:
     
     Attributes:
         letter (str): The letters of the randomly chosen word
-        word (List[str]): The randomly chosen word (marker, board, pen, pencil, textbook)
+        word (List[str]): The randomly chosen word (marker, book)
     """
 
     def __init__(self):

@@ -22,6 +22,6 @@ class TerminalService:
 
         Args: 
             self (TerminalService): An instance of TerminalService.
-            text (string): The text to display.
+            text (str): The text to display.
         """
         print(text)

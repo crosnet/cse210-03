@@ -6,7 +6,7 @@ class Word:
     The responsibility of Word is to store a random word for the jumper to make a guess at it.
     
     Attributes:
-        word (List[str]): The randomly chosen word (marker, board, pen, pencil, textbook)
+        word (List[str]): The randomly chosen word (marker, book)
         letter (str): The letters of the randomly chosen word
     """
 
