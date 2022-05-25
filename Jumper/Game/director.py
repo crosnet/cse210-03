@@ -1,43 +1,58 @@
 from game.terminal_service import TerminalService
-from game.jumper import Jumper
-from game.guesser import Guesser
+from game.hider import Hider
+from game.seeker import Seeker
 
 
 class Director:
-  """A person who directs the game. 
+    """A person who directs the game. 
     
-  The responsibility of a Director is to control the sequence of play.
+    The responsibility of a Director is to control the sequence of play.
 
     Attributes:
-        
-  """
-
-  def __init__(self):
-    """Constructs a new Director.
-        
-    Args:
-      self (Director): an instance of Director.
+        hider (Hider): The game's hider.
+        is_playing (boolean): Whether or not to keep playing.
+        seeker (Seeker): The game's seeker.
+        terminal_service: For getting and displaying information on the terminal.
     """
 
-
-  def start_game(self):
-    """Starts the game by running the main game loop.
+    def __init__(self):
+        """Constructs a new Director.
         
-    Args:
-      self (Director): an instance of Director.
-    """
-    while self._is_playing:
-      self._get_inputs()
-      self._do_updates()
-      self._do_outputs()
+        Args:
+            self (Director): an instance of Director.
+        """
+        self._guesser = Word()
+        self._is_playing = True
+        self._jumper = Jumper()
+        self._terminal_service = TerminalService()
+        
+    def start_game(self):
+        """Starts the game by running the main game loop.
+        
+        Args:
+            self (Director): an instance of Director.
+        """
+        while self._is_playing:
+            self._get_inputs()
+            self._do_updates()
+            self._do_outputs()
 
+    def _get_inputs(self):
+        """Gets a random word
 
-  def _get_inputs(self):
-  
+        Args:
+            self (Director): An instance of Director.
+        """
+        new_letter = self._terminal_service.read_number("\nEnter a letter: ")
+        self._jumper.guess_letter(new_letter)
+        
+    def _do_outputs(self):
+        """Provides a hint for the jumper to use.
 
-
-  def _do_updates(self):
-
-
-
-  def _do_outputs(self):
+        Args:
+            self (Director): An instance of Director.
+        """
+        hint = self._guesser.get_hint()
+        self._terminal_service.write_text(hint)
+        if self._guesser.is_found():
+            self._is_playing = False
